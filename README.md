@@ -21,4 +21,7 @@ You just have to **git clone** the repository and put some proxies onto **socks5
 
 ## Execute the script -
 `python3 Flooder.py` - Input data manually
+
 `python3 Flooder.py -host IP -p PORT  -threads Threads_Number -type 4/5 --amplification 100  -pFile Proxies_File -m Method (1/2/3)` - Input data with in-command-arguments.
+
+You can enable print option in Flooder.py, i didn't set it as default due to less perfomance if printing each request!
