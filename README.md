@@ -19,3 +19,6 @@ You just have to **git clone** the repository and put some proxies onto **socks5
 * `HadesDestroyer - Sends Connection Packets (CPS) with an static nickname (For Simulating Traffic, NOT BOTTING)`
 * `NullPing - Sends invalid packets (trash, can be fixed using FlameCord)`
 
+## Execute the script -
+`python3 Flooder.py` - Input data manually
+`python3 Flooder.py -host IP -p PORT  -threads Threads_Number -type 4/5 --amplification 100  -pFile Proxies_File -m Method (1/2/3)` - Input data with in-command-arguments.
